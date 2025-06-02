@@ -28,7 +28,7 @@ E_s = pre_trained_model['s_embeddings']
 E_j = pre_trained_model['j_embeddings']
 
 # test data load
-datas_pkl = open("data/inference.pkl",'rb')
+datas_pkl = open("data/resume_dataset.pkl",'rb')
 datas = pickle.load(datas_pkl)
 datasets = MatchingDataset(datas)
 n_total = len(datasets)
