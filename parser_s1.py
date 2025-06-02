@@ -2,8 +2,8 @@ import argparse
 
 def parse_args():
     parser = argparse.ArgumentParser(description='Model Params')
-    parser.add_argument('--path', default='data/dataset.pkl', type=str, help="data path")
-    parser.add_argument('--hpath', default='data/h_dataset.pkl', type=str, help="hierarchy data path")
+    parser.add_argument('--path', default='data/bipartite_dataset.pkl', type=str, help="data path")
+    parser.add_argument('--hpath', default='data/hierarchy_dataset.pkl', type=str, help="hierarchy data path")
     parser.add_argument('--h_depth', default=5, type=int, help='Hierarchy depth')
     parser.add_argument('--lr', default=1e-3, type=float, help='learning rate')
     parser.add_argument('--weight_decay', default=1e-5, type=float, help='learning rate')
