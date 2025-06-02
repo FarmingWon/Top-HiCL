@@ -16,5 +16,3 @@ def parse_args():
     parser.add_argument('--cuda', default='0', type=str, help='the gpu to use')
     return parser.parse_args()
 args = parse_args()
-
-# batch_size, batch_type, expand_factor, num_workers=8, shuffle=True, pos_dim=128
