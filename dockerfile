@@ -14,7 +14,6 @@ RUN apt-get update && apt-get install -y \
 
 RUN ln -s /usr/bin/python3.10 /usr/bin/python
 
-# pip 최신 버전 업데이트
 RUN python -m pip install --upgrade pip
 
 RUN pip install torch torchvision torchaudio --index-url https://download.pytorch.org/whl/cu118
