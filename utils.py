@@ -137,18 +137,6 @@ def augmented_mean_pooling_job_emb(adj, aug_e_s, device):
     stacked = torch.stack([t.to(device) for t in aug_job_emb])
     return stacked
 
-def dot_product_scipy(mat_sparse, mat_dense):
-    return torch.sparse.mm(mat_sparse, mat_dense.squeeze(1))
-
-
-def spmm(sp, emb, device): # sparse matrix * dense matrix
-    sp = sp.coalesce()
-    cols = sp.indices()[1]
-    rows = sp.indices()[0]
-    col_segs =  emb[cols] * torch.unsqueeze(sp.values(),dim=1)
-    result = torch.zeros((sp.shape[0],emb.shape[1])).cuda(torch.device(device))
-    result.index_add_(0, rows, col_segs)
-    return result
 
 class JobSkillLoader(data.Dataset):
     def __init__(self, coo_matrix, num_neg_samples = 1, hard_negative=False):
