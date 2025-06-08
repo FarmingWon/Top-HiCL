@@ -24,24 +24,24 @@ def coo_bipartite_normalized(train, device):
     rowD = np.array(train.sum(1)).squeeze()  # Job degree
     colD = np.array(train.sum(0)).squeeze()  # Skill degree
 
-    ### ① Row-normalized: D_J^{-1} A
+    ### Row-normalized: D_J^{-1} A
     train_row_norm = train.copy()
     for i in range(len(train_row_norm.data)):
         train_row_norm.data[i] = train_row_norm.data[i] / (rowD[train_row_norm.row[i]] + 1e-8)
 
-    ### ② Col-normalized: A D_S^{-1}
+    ### Col-normalized: A D_S^{-1}
     train_col_norm = train.copy()
     for i in range(len(train_col_norm.data)):
         train_col_norm.data[i] = train_col_norm.data[i] / (colD[train_col_norm.col[i]] + 1e-8)
 
-    ### ③ Symmetric-normalized: D_J^{-1/2} A D_S^{-1/2}
+    ### Symmetric-normalized: D_J^{-1/2} A D_S^{-1/2}
     train_sym_norm = train.copy()
     for i in range(len(train_sym_norm.data)):
         train_sym_norm.data[i] = train_sym_norm.data[i] / (
             (rowD[train_sym_norm.row[i]] * colD[train_sym_norm.col[i]])**0.5 + 1e-8
         )
 
-    ### ④ Symmetric-normalized (transposed): D_S^{-1/2} A^T D_J^{-1/2}
+    ### Symmetric-normalized (transposed): D_S^{-1/2} A^T D_J^{-1/2}
     train_sym_reverse = sp.coo_matrix(
         (train_sym_norm.data, (train_sym_norm.col, train_sym_norm.row)),  # A^T
         shape=(train.shape[1], train.shape[0])  # skill × job
@@ -354,7 +354,6 @@ class HierarchySkillLoader(data.Dataset):
                 fallback = random.sample(self.skill_list, self.num_neg_samples - len(neg_candidates))
                 hard_negative_pairs.append(neg_candidates + fallback)
 
-        # 보정
         while len(positive_pairs) < len(self.rows):
             positive_pairs.append(random.choice(self.skill_list))
         while len(hard_negative_pairs) < len(self.rows):
